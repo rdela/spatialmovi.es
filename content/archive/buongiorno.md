@@ -8,7 +8,7 @@ Spatial Movies is a new studio dedicated to creating spatial audiovisual media a
 
 Buongiorno internet, welcome, and thank you for joining us on this revolutionary adventure.
 
-{% image "./spatialmovies.jpg", "Spatial Movies logo in front of colorful globes" %}
+{% image "../../public/img/spatialmovies.jpg", "Spatial Movies logo in front of colorful globes" %}
 
 ## Stay Tuned 🍿
 
