@@ -6,6 +6,6 @@ eleventyNavigation:
 ---
 # About
 
-Eleventeen is a work in progress variation of [eleventy-base-blog v8](https://github.com/11ty/eleventy-base-blog), an [Eleventy](https://www.11ty.dev) blog starter. The name is an homage to the [Daisy Chainsaw album](https://en.wikipedia.org/wiki/Eleventeen_(album)).
+Spatial Movies is a new studio dedicated to creating spatial audiovisual media and traditional media about it. 
 
-The eleventeen demo lives at <https://eleventeen.blog>
+We publish the site with [Eleventeen](https://eleventeen.blog), an [Eleventy](https://www.11ty.dev) blog starter whose name is an homage to the [Daisy Chainsaw album](https://en.wikipedia.org/wiki/Eleventeen_(album)).

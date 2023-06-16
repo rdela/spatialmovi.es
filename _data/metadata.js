@@ -1,8 +1,8 @@
 module.exports = {
-	title: "eleventeen v8",
-	url: "https://eleventeen.blog",
+	title: "Spatial Movies",
+	url: "https://spatialmovi.es",
 	language: "en",
-	description: "Rainbow Eleventy Base Blog v8 template",
+	description: "Spatial Movies website",
 	author: {
 		name: "Ricky de Laveaga",
 		email: "ricky@rdela.com",
