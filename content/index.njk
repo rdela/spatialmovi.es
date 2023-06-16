@@ -5,6 +5,9 @@ eleventyNavigation:
   order: 1
 numberOfLatestPostsToShow: 12
 ---
+
+<p>Spatial Movies is a new studio dedicated to creating spatial audiovisual media and traditional media about it.</p>
+
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
 <h1>Latest {% if latestPostsCount != 1 %}{{ latestPostsCount }}{% endif %} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
