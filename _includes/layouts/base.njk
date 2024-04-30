@@ -3,31 +3,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-		<meta name="theme-color" content="white">
+		<meta name="theme-color" content="#fff">
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
-
+		<meta property="og:image" content="{% shareimg hero or metadata.siteimage %}" />
 		{#- Atom and JSON feeds included by default #}
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
 
-		<!-- Open graph -->
-		<meta property="og:title" content="{{ title or metadata.title }}" />
-		<meta property="og:description" content="{{ description or metadata.description }}" />
-		<meta property="og:image" content="{{ image or "https://spatialmovi.es/img/spatialmovies.jpg"}}" />
-		<meta property="og:type" content="article" />
-		<meta property="og:image:width" content="3840" />
-		<meta property="og:image:height" content="2160" />
-
-		<!-- Twitter -->
-		<meta name="twitter:title" content="{{ title or metadata.title }}" />
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@famebot">
-		<meta name="twitter:description" content="{{ description or metadata.description }}" />
-		<meta name="twitter:image" content="{{ image or "https://spatialmovi.es/img/spatialmovies.jpg"}}" />
-		<meta name="twitter:creator" content="@rickydelaveaga">
-		
-		<meta name="generator" content="{{ eleventy.generator }}">
+		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
+		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
@@ -41,11 +26,18 @@
 		{%- css %}* { box-sizing: border-box; }{% endcss %}
 		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
+		
+		{%- if not metadata.mono %}
+		{%- css %}{% include "public/css/rainbow.css" %}{% endcss %}
+		{% endif %}
 		{#- Or add from node_modules #}
 		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
 
 		{#- Render the CSS bundle using Inlined CSS (for the fastest site performance in production) #}
 		<style>{% getBundle "css" %}</style>
+
+		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
+		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
 	</head>
 	<body>
 		<div class="pantalla">
@@ -63,6 +55,8 @@
 					{%- endfor %}
 					</ul>
 				</nav>
+				
+				<a class="button" href="https://conf.11ty.dev/">Attend 11ty Conf <span role="img" aria-label="">🎫</span></a>
 			</header>
 
 			<main id="skip">
@@ -70,55 +64,101 @@
 			</main>
 
 			<footer>
-				{#- 🌈 Rainbow button #}
-				<button onclick="rainbow()">🌈 Rainbow Me</button>
-				<span id="hsl-gen-hue"></span>
-				<span>📓 <a href="https://github.com/rdela/eleventeen">Published with eleventeen</a></span>
+				{%- if not metadata.mono %}
+					{#- Rainbow Mode enabled, show 🌈 Rainbow button and readout #}
+					<div id="rainbutton"></div>
+					<aside id="chromagen"></aside>
+				{% endif %}
+				<aside>powered by <a title="{{ metadata.eleventeen }}" href="https://github.com/rdela/eleventeen">eleventeen</a></aside>
 			</footer>
 
-			<!-- Current page: {{ page.url | htmlBaseUrl }} -->
-			{% js %}
-				{% include "node_modules/@famebot/hsl-gen/dist/hsl-gen.umd.js" %}
-			{% endjs %}
-			{% js %}
-const rainbow = () => {
-var colorScheme = hslGen();
+			<!-- This page `{{ page.url | htmlBaseUrl }}` was built on {% currentBuildDate %} -->			
 
-{#- https://davidwalsh.name/css-variables-javascript #}
-const docstyle = document.documentElement.style;
-docstyle.setProperty('--active-light', colorScheme.darkhuehsl);
-docstyle.setProperty('--active-dark', colorScheme.huehsl);
-docstyle.setProperty('--background-color-light', colorScheme.huehsl);
-docstyle.setProperty('--background-color-dark', colorScheme.darkhuehsl);
-docstyle.setProperty('--complement', colorScheme.analhsl);
-docstyle.setProperty('--complementdark', colorScheme.analhsldark);
-docstyle.setProperty('--complementdarker', colorScheme.analhsldarker);
-docstyle.setProperty('--primary', colorScheme.comphsl);
-docstyle.setProperty('--primarydark', colorScheme.comphsldark);
-docstyle.setProperty('--primarydarker', colorScheme.comphsldarker);
-docstyle.setProperty('--text-color-dark', colorScheme.huehsllighter);
-docstyle.setProperty('--text-color-light', colorScheme.darkhuehsldarker);
+			{#
+				listen for and respond to prefers-color-scheme (light/dark)
+				changes in both mono and rainbow modes
+			#}
+			{% js %}
+let huedark = '#000';
+let huehsl = '#fff';
 
 function activateColorScheme() {
 	const colorSchemeQueryList = window.matchMedia('(prefers-color-scheme: light)');
 	if ((colorSchemeQueryList.media === 'not all') 
 	|| (colorSchemeQueryList.matches === true)) {
-		document.querySelector('meta[name="theme-color"]').setAttribute('content', colorScheme.huehsl);
+		document.querySelector('meta[name="theme-color"]').setAttribute('content', huehsl);
 	} else {
-		document.querySelector('meta[name="theme-color"]').setAttribute('content', colorScheme.darkhuehsl);
+		document.querySelector('meta[name="theme-color"]').setAttribute('content', huedark);
 	}
 }
+{# respond to prefers-color-scheme changes #}
 const darkPreference = window.matchMedia("(prefers-color-scheme: dark)");
 const lightPreference = window.matchMedia("(prefers-color-scheme: light)");
 darkPreference.addEventListener("change", e => e.matches && activateColorScheme());
 lightPreference.addEventListener("change", e => e.matches && activateColorScheme());
-activateColorScheme();
+			{% endjs %}
+			
+			{# rainbow mode code lode #}
+			{%- if not metadata.mono %}
+			{% js %}
+				{% include "node_modules/@famebot/chromagen/dist/chromagen.umd.js" %}
+			{% endjs %}
+			{% js %}
+{# connect Rainbow Me button #}
+document.querySelector('#rainbutton').innerHTML = '<button title="wish upon a star" onclick="rainbow()">🌈 Rainbow Me</button>';
 
-document.querySelector('#hsl-gen-hue').innerHTML = ` Hue: ${colorScheme.hue} (<a href="https://hsl-gen.netlify.app">HSL Gen</a>)`;
+const rainbow = () => {
+var colorScheme = chromagen();
+{#- https://davidwalsh.name/css-variables-javascript #}
+const docstyle = document.documentElement.style;
+huedark = `hsl(${colorScheme.hue}, ${colorScheme.saturation}, ${colorScheme.darkness})`;
+huehsl = `hsl(${colorScheme.hue}, ${colorScheme.saturation}, ${colorScheme.lightness})`;
+docstyle.setProperty('--active-light', huedark);
+docstyle.setProperty('--active-dark', huehsl);
+docstyle.setProperty('--background-color-light', huehsl);
+docstyle.setProperty('--background-color-dark', huedark);
+docstyle.setProperty('--complement', `hsl(${colorScheme.analogous}, ${colorScheme.saturation}, ${colorScheme.lightness})`);
+docstyle.setProperty('--complementdark', `hsl(${colorScheme.analogous}, ${colorScheme.saturation}, ${colorScheme.darkness})`);
+docstyle.setProperty('--complementdarker', `hsl(${colorScheme.analogous}, ${colorScheme.saturation}, ${colorScheme.darker})`);
+docstyle.setProperty('--primary', `hsl(${colorScheme.complement}, ${colorScheme.saturation}, ${colorScheme.lightness})`);
+docstyle.setProperty('--primarydark', `hsl(${colorScheme.complement}, ${colorScheme.saturation}, ${colorScheme.darkness})`);
+docstyle.setProperty('--primarydarker', `hsl(${colorScheme.complement}, ${colorScheme.saturation}, ${colorScheme.darker})`);
+docstyle.setProperty('--text-color-dark', `hsl(${colorScheme.hue}, ${colorScheme.saturation}, ${colorScheme.lighter})`);
+docstyle.setProperty('--text-color-light', `hsl(${colorScheme.hue}, ${colorScheme.saturation}, ${colorScheme.darker})`);
+{# 
+	activate theme-color. needs to happen here so theme-color updates even if
+	page already loaded, for example when Rainbow Me button is clicked.
+#}
+activateColorScheme();
+{# update readout #}
+document.querySelector('#chromagen').innerHTML = `<details>
+	<summary><span role="img" aria-label="palette">🎨</span>
+		<span title="hue"> H&nbsp;${colorScheme.hue} </span> 
+		<span title="complement">C&nbsp;${colorScheme.complement} </span> 
+		<span title="analogous">A&nbsp;${colorScheme.analogous}</span>
+	</summary>
+	<span title="saturation">S&nbsp;${colorScheme.saturation} </span>
+	<span title="xlight">XL&nbsp;${colorScheme.xlight} </span>
+	<span title="lighter">LR&nbsp;${colorScheme.lighter} </span>
+	<span title="lightness">L&nbsp;${colorScheme.lightness} </span>
+	<span title="midrange">M&nbsp;${colorScheme.midrange} </span>
+	<span title="lowmid">LM&nbsp;${colorScheme.lowmid} </span>
+	<span title="darkness">D&nbsp;${colorScheme.darkness} </span>
+	<span title="darker">DR&nbsp;${colorScheme.darker} </span>
+	<a href="https://chromagen.io">Chromagen</a>
+</details>`;
 }
 rainbow();
 			{% endjs %}
-			{# 
+			{# end rainbow mode code lode #}
+			{% else %}
+			{% js %}
+{# activate theme-color in mono mode #}
+activateColorScheme();
+			{% endjs %}
+			{% endif %}
+
+			{#
 				getBundleFileUrl Writes the bundle content to a content-hashed file location in your 
 				output directory and returns the URL to the file for use.
 				https://github.com/11ty/eleventy-plugin-bundle/blob/main/README.md#write-a-bundle-to-a-file
@@ -129,6 +169,8 @@ rainbow();
 				http://calendar.perfplanet.com/2011/why-inlining-everything-is-not-the-answer/
 				Choosing not to block render
 				https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#blocking_rendering_till_a_script_is_fetched_and_executed
+				need bundle in both mono and rainbow modes to set and respond to 
+				prefers-color-scheme initial preference and changes
 			#}
 			<script async src="{% getBundleFileUrl "js" %}"></script>
 		</div>

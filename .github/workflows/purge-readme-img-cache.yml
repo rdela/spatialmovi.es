@@ -1,0 +1,10 @@
+on:
+  push:
+    branches:
+      - trunk
+
+jobs:
+  camo-purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kevincobain2000/action-camo-purge@v1

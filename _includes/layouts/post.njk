@@ -6,6 +6,28 @@ layout: layouts/base.njk
 {% include "node_modules/prismjs/themes/prism-okaidia.css" %}
 {% include "public/css/prism-diff.css" %}
 {%- endcss %}
+<figure>
+{%- if hero and heroalt %}
+
+	{%- if herolink %}
+		<a href={{ herolink }}>
+	{%- endif %}
+
+	{% image hero, heroalt %}
+
+	{%- if herolink %}
+		</a>
+	{%- endif %}
+
+	{%- if herocaption %}
+		<figcaption>
+			{%- if herolink %}<a href={{ herolink }}>{%- endif %}
+			{{ herocaption }}
+			{%- if herolink %}</a>{%- endif %}
+		</figcaption>
+	{%- endif %}
+{%- endif %}
+</figure>
 <h1>{{ title }}</h1>
 
 <ul class="post-metadata">
@@ -16,11 +38,7 @@ layout: layouts/base.njk
 	{%- endfor %}
 </ul>
 
-<div class="post-content">
-
 {{ content | safe }}
-
-</div>
 
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
