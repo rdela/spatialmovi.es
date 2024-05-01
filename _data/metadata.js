@@ -11,7 +11,7 @@ let data = {
     },
     siteimage: "https://spatialmovi.es/img/spatialmovies.jpg",
     mono: false,
-    eleventeen: "9.2.12-alpha.9"
+    eleventeen: "9.2.13-alpha.9"
 };
 
 export default data;
