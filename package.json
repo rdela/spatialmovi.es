@@ -1,7 +1,7 @@
 {
 	"name": "spatialmovies",
-	"version": "9.2.13-alpha.9",
-	"description": "Spatial Movies website using eleventeen and the Eleventy site generator.",
+	"version": "9.2.13-alpha.10",
+	"description": "Spatial Movies website built with Eleventy + eleventeen",
 	"type": "module",
 	"scripts": {
 		"build": "eleventy",
