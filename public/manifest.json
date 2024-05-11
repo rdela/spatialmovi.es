@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Spatial Movies",
+  "short_name": "Spatial Mov",
+  "version": "9.2.14.10",
+  "description": "Spatial Movies is a new studio dedicated to creating spatial audiovisual media and traditional media about it.",
+  "icons": {
+    "512": "/spatialmovies-512.png"
+  },
+}
