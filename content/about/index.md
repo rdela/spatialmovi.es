@@ -3,7 +3,6 @@ layout: layouts/base.njk
 eleventyNavigation:
   key: About
   order: 3
-hero: ../../public/img/spatialmovies-2560x1280.png
 ---
 
 # About Spatial Movies

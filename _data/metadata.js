@@ -9,7 +9,7 @@ let data = {
         email: "ricky@rdela.com",
         url: "https://rdela.com"
     },
-    siteimage: "https://spatialmovi.es/img/spatialmovies.jpg",
+    siteimage: "https://spatialmovi.es/img/spatialmovies-2560x1280.png",
     mono: false,
     eleventeen: "9.2.14-alpha.10"
 };

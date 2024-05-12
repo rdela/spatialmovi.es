@@ -2,7 +2,7 @@
 
 Spatial Movies is a new studio dedicated to creating spatial audiovisual media and traditional media about it.
 
-[![](https://spatialmovi.es/img/spatialmovies.jpg)](https://spatialmovi.es)
+[![](https://spatialmovi.es/img/spatialmovies-2560x1280.png)](https://spatialmovi.es)
 
 We publish the site with [Eleventeen](https://eleventeen.blog). Browse the [spatialmovi.es source code](https://github.com/rdela/spatialmovi.es) on GitHub, or check the ([Latest Lighthouse report](https://eleventeen.blog/reports/lighthouse/)).
 
