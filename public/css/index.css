@@ -462,3 +462,7 @@ a.header-anchor:focus,
 h2 + .header-anchor {
 	font-size: 1.5em;
 }
+
+.home-link img {
+	fill: currentColor;
+}
