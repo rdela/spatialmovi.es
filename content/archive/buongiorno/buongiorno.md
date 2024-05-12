@@ -2,8 +2,8 @@
 title: Welcome to Spatial Movies!
 description: Spatial Movies is a new studio dedicated to creating spatial audiovisual media and traditional media about it.
 date: 2023-06-16
-hero: https://spatialmovi.es/img/spatialmovies.jpg
-heroalt: Colorful globes shining through letters spelling Spatial Movies
+hero: spatialmovies-blue-trans-2560x1280.png
+heroalt: Simple shapes of a person wearing VR goggles and a movie clapperboard with the letters S and M on it above the text Spatial Movies.
 herolink: https://spatialmovi.es/
 tags: spatial movies
 ---
