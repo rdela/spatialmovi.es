@@ -1,6 +1,6 @@
 {
 	"name": "spatialmovies",
-	"version": "v9.2.15-alpha.13",
+	"version": "9.2.16-alpha.13",
 	"description": "Spatial Movies website built with Eleventy + eleventeen",
 	"type": "module",
 	"scripts": {

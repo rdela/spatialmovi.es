@@ -11,7 +11,8 @@ let data = {
 	},
 	siteimage: "https://spatialmovi.es/img/spatialmovies-2560x1280.png",
 	mono: false,
-	eleventeen: "v9.2.15-alpha.13",
+	eleventeen: "v9.2.16-alpha.13",
+	elevenv: process.env.ELEVENTY_VERSION,
 };
 
 export default data;
