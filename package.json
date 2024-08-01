@@ -39,7 +39,7 @@
 	},
 	"homepage": "https://spatialmovi.es/",
 	"devDependencies": {
-		"@11ty/eleventy": "3.0.0-alpha.13",
+		"@11ty/eleventy": "3.0.0-beta.1",
 		"@11ty/eleventy-img": "^4.0.2",
 		"@11ty/eleventy-navigation": "^0.3.5",
 		"@11ty/eleventy-plugin-bundle": "^2.0.2",
